@@ -3,10 +3,10 @@ name: Makefile CI
 on:
   push:
     branches:
-    - master
+    - main
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
         path: '*.jar'
     - run: ./test.sh
     - uses: softprops/action-gh-release@v2
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/test-ci'
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/test-ci' || github.ref == 'refs/heads/main'
       with:
         files: rars-flatlaf.jar
         tag_name: 'lastest'
