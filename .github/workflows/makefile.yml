@@ -23,6 +23,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         path: '*.jar'
+    - run: chmod +x ./test.sh
     - run: ./test.sh
     - uses: softprops/action-gh-release@v2
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/test-ci' || github.ref == 'refs/heads/main'
