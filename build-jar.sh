@@ -1,6 +1,8 @@
 #!/bin/bash
-if git submodule status | grep \( > /dev/null ; then 
-    version=$(git describe --tags --match 'v*' --dirty | cut -c2-)
+# JSoftFloat is provided as a regular directory at res/jsoftfloat (no submodule).
+# Check for that directory instead of using `git submodule` status.
+if [ -d res/jsoftfloat ] ; then
+    version=$(git describe --tags --match 'v*' --dirty | cut -c2- || echo "unknown")
     echo "Version = $version" > src/Version.properties
     mkdir -p build
     find src -name "*.java" | xargs javac --release 11 -d build
@@ -16,5 +18,5 @@ if git submodule status | grep \( > /dev/null ; then
     jar cfm ../rars.jar ./META-INF/MANIFEST.MF *
     chmod +x ../rars.jar
 else
-    echo "It looks like JSoftFloat is not cloned. Consider running \"git submodule update --init\""
+    echo "It looks like JSoftFloat is not present in res/jsoftfloat. Ensure the 'res/jsoftfloat' directory exists."
 fi
